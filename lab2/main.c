@@ -84,16 +84,16 @@ int main(void)
   for(;;)
   {
   	if(GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_10) == 0) {
-			if(TIM_Pulse < timer_period)
-				TIM_Pulse++;
-				TIM4->CCR3 = TIM_Pulse;
-		}
+		if(TIM_Pulse < timer_period)
+			TIM_Pulse++;
+		TIM4->CCR3 = TIM_Pulse;
+	}
 		
-		if(GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_10) == 1) {
-			if (TIM_Pulse > 0)
-				TIM_Pulse--;
+	if(GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_10) == 1) {
+		if (TIM_Pulse > 0)
+			TIM_Pulse--;
      		TIM4->CCR3 = TIM_Pulse;
-		}
-		for(i=0;i<0x10000;i++);				
+	}
+	for(i=0;i<0x10000;i++);				
   }
 }
