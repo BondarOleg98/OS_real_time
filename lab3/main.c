@@ -1,26 +1,20 @@
 #include "init_motor.h"
+
 int step = 0;
-	int direction = FORVARD_;
-	int time_steps[] = {STEP_1,STEP_2,STEP_3,STEP_4,STEP_5,STEP_6,STEP_7};
+GPIO_TypeDef* port_step[] = {STEP_1B_GPIO,STEP_2A_GPIO,STEP_3A_GPIO,STEP_4B_GPIO};
+int time_steps[] = {PIN_1B,PIN_1A,PIN_2A,PIN_2B};
 int main(void)
 {
-	
-	
-	
 	motor_b_init();
     
-	
-	while(1){
-        
-				GPIO_ResetBits(GPIOB, PIN_1B | PIN_1A |PIN_2A | PIN_2B);
-				GPIO_SetBits(GPIOB, time_steps[step]);
-					if (direction){
-						if (++step == 7) 
-								step = 0; 
-						}else{
-					if (--step == -1) 
-							step = 6;
-						}	
+	while(1){ 
+				reset_bits();
+				GPIO_SetBits(port_step[step], time_steps[step]);
+					if (DIRECTION){
+						if (++step == 4) step = 0; 
+					} else {
+							if (--step == -1) step = 3;
+					}	
     wait (SPEED);
      }
 }
